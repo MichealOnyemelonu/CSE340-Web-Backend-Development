@@ -36,13 +36,18 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/organizations', async (req, res) => {
-    const title =- 'Our Partner Organisations';
+    const title = 'Our Partner Organisations';
     res.render ('organizations', { title });
 });
 
 app.get('/projects', async (req, res) => {
-    const title = 'Service Projects'
+    const title = 'Service Projects';
     res.render ('projects', { title });
+});
+
+app.get('/categories', async (req, res) => {
+    const title = 'Categories';
+    res.render ('categories', { title });
 });
 
 app.listen(PORT, () => {
