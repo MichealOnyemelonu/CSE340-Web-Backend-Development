@@ -1,30 +1,276 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+/* =========================================================
+   My thought process to avoid color contrast in this webpage
+   Palette:
+     --color-primary : deep navy   -> header, footer, headings
+     --color-accent  : dark teal   -> links, hover/active states, buttons
+     --color-bg       : near-white -> page background
+     --color-text     : dark gray  -> body copy (better readability than pure black)
+   All text/background pairings below meet WCAG AA contrast (4.5:1+).
+   ========================================================= */
+
+:root {
+    --color-primary: #14213d;
+    --color-accent:  #046865;
+    --color-bg:      #fafafa;
+    --color-text:    #1f2937;
+    --color-white:   #ffffff;
+
+    --max-width: 1000px;
+    --radius: 6px;
+    --transition: 0.25s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
 }
 
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+h1, h2, h3 {
+    color: var(--color-primary);
+    line-height: 1.25;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+a {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
+a:hover,
+a:focus {
+    color: var(--color-primary);
+}
+
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+#site-header {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 16px 20px;
+}
+
+#site-header .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+#site-header .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#site-header .site-icon {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+#site-header .header-text p {
+    margin: 0;
+}
+
+#site-header .site-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#site-header .header-text p:last-child {
+    font-size: 0.95rem;
+    color: #d7dee8; 
+}
+
+
+#menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 2px solid var(--color-white);
+    border-radius: var(--radius);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+#menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-white);
+    border-radius: 2px;
+    transition: transform var(--transition), opacity var(--transition);
+}
+
+#menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+#menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+#menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+nav {
+    background-color: var(--color-primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+nav ul {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    padding: 14px 18px;
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+nav a:hover,
+nav a:focus {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+
+main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 30px 20px 40px;
+}
+
+main > p {
+    font-size: 1.05rem;
+}
+
+main ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: grid;
+    gap: 16px;
+}
+
+main ul li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--color-white);
+    border: 1px solid #e2e2e2;
+    border-radius: var(--radius);
+    padding: 16px;
+}
+
+main ul li img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+main ul li strong {
+    color: var(--color-primary);
+}
+
+
+footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 4px 0;
+}
+
+footer a {
+    color: #9fd8d4; 
+}
+
+
+@media (max-width: 700px) {
+
+    #site-header .header-inner {
+        flex-wrap: wrap;
     }
-}  
+
+    #menu-toggle {
+        display: flex;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+    }
+
+    nav ul.open {
+        display: flex;
+    }
+
+    nav a {
+        padding: 14px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    main ul li {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
