@@ -68,3 +68,20 @@ VALUES
 
 SELECt * FROM service_project;
 
+CREATE TABLE category (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE project_category (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    FOREIGN KEY (project_id)
+        REFERENCES service_project(project_id),
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+);
