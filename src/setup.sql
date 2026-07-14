@@ -1,3 +1,4 @@
+-- wk 1
 -- ========================================
 -- Organization Table
 -- ========================================
@@ -23,6 +24,7 @@ VALUES
 
 SELECT * FROM organization;
 
+-- == wk1 team activity
 -- ==============================
 -- Creating a service project table
 -- ==============================
