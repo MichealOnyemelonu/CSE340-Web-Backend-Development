@@ -147,3 +147,7 @@ vite.config.ts.timestamp-*
 progress.txt
 learning.txt
 todo_list.txt
+achievement.txt
+
+
+sql
