@@ -25,6 +25,7 @@ const app = express();
 // Setting EJS as the templating engine
 app.set('view engine', 'ejs');
 
+
 // Telling Express where to find your templates
 app.set('views', path.join(currentDirname, 'src/views'));
 
@@ -32,7 +33,21 @@ app.set('views', path.join(currentDirname, 'src/views'));
 app.use(express.static(path.join(currentDirname, 'public')));
 
 
+// Add middleware to log every request
 
+// Middleware to log all incoming requests
+app.use((req, res, next) => {
+    if (nodeEnv === 'development') {
+        console.log(`${req.method} ${req.url}`);
+    }
+    next(); // Pass control to the next middleware or route
+});
+
+// Middleware to make NODE_ENV available to all templates
+app.use((req, res, next) => {
+    res.locals.NODE_ENV = nodeEnv;
+    next();
+});
 
 
 
@@ -93,3 +108,5 @@ app.listen(port, async() => {
         console.error('Error connecting to the database:', error);
     }    
 }); 
+
+
