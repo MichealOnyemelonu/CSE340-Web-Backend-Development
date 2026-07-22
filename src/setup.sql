@@ -75,6 +75,8 @@ CREATE TABLE category (
     category_name VARCHAR(100) NOT NULL UNIQUE
 );
 
+SELECt * FROM category;
+
 CREATE TABLE project_category (
     project_id INT NOT NULL,
     category_id INT NOT NULL,
@@ -87,3 +89,21 @@ CREATE TABLE project_category (
     FOREIGN KEY (category_id)
         REFERENCES category(category_id)
 );
+SELECt * FROM project_category;
+
+INSERT INTO category (category_id, category_name)
+VALUES
+(1, 'Environment'),
+(2, 'Education'),
+(3, 'Community Service')
+(4, 'Health and Wellness');
+
+SELECT project_id, title, project_date FROM service_project ORDER BY project_date;
+-- ======================================
+-- Update my seed data so at least 5 rows have dates in the future relative to the system
+-- ======================================
+UPDATE service_project SET project_date = '2026-08-05' WHERE project_id = 1;
+UPDATE service_project SET project_date = '2026-08-12' WHERE project_id = 6;
+UPDATE service_project SET project_date = '2026-08-20' WHERE project_id = 11;
+UPDATE service_project SET project_date = '2026-09-01' WHERE project_id = 2;
+UPDATE service_project SET project_date = '2026-09-10' WHERE project_id = 7;
