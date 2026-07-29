@@ -3,10 +3,11 @@ import express from 'express';
 import { showHomePage } from './controllers/index.js';
 import { showOrganizationsPage } from './controllers/organizations.js';
 
-import { showProjectsPage, showProjectDetailsPage } from './controllers/projects.js';
-import { showCategoriesPage, showCategoryDetailsPage  } from './controllers/categories.js';
+import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation } from './controllers/projects.js';
+import { showCategoriesPage, showCategoryDetailsPage,  } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import { showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm, organizationValidation, showEditOrganizationForm, processEditOrganizationForm } from './controllers/organizations.js';
+import { showOrganizationDetailsPage, showNewOrganizationForm, 
+    processNewOrganizationForm, organizationValidation, showEditOrganizationForm, processEditOrganizationForm } from './controllers/organizations.js';
 
 const router = express.Router();
 
@@ -39,5 +40,14 @@ router.post('/edit-organization/:id', processEditOrganizationForm);
 
 // Route to handle the edit organization form submission
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+
+// Route for new project page
+router.get('/new-project', showNewProjectForm);
+
+// Route to handle new project form submission
+router.post('/new-project', processNewProjectForm);
+
+// Route to handle new project form submission with validation
+router.post('/new-project', projectValidation, processNewProjectForm);
 
 export default router;
