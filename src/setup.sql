@@ -107,3 +107,54 @@ UPDATE service_project SET project_date = '2026-08-12' WHERE project_id = 6;
 UPDATE service_project SET project_date = '2026-08-20' WHERE project_id = 11;
 UPDATE service_project SET project_date = '2026-09-01' WHERE project_id = 2;
 UPDATE service_project SET project_date = '2026-09-10' WHERE project_id = 7;
+
+ALTER TABLE service_project
+ALTER COLUMN project_id ADD GENERATED ALWAYS AS IDENTITY;
+
+INSERT INTO service_project (title, description, location, project_date, organization_id)
+VALUES ('Test', 'Test', 'Test', '2026-08-08', 1)
+RETURNING project_id;
+
+SELECT pg_get_serial_sequence('service_project', 'project_id');
+
+
+
+SELECT setval(
+  'service_project_project_id_seq',
+  (SELECT MAX(project_id) FROM service_project)
+);
+
+SELECT setval(
+  'service_project_project_id_seq',
+  (SELECT MAX(project_id) FROM service_project) + 1,
+  false
+);
+
+SELECT pg_get_serial_sequence('service_project', 'project_id');
+
+SELECT setval(
+  'service_project_project_id_seq',
+  (SELECT MAX(project_id) FROM service_project) + 1,
+  false
+);
+
+-- ======================
+-- I fixed the database so that the category_id column 
+-- automatically generates a new unique number for each new 
+-- category instead of being null. I also reset the sequence 
+-- so it continues from the correct next value, preventing 
+-- duplicate key errors. Now when I submit the form, the 
+-- database correctly assigns IDs and inserts the category without crashing.
+ALTER TABLE category
+ALTER COLUMN category_id ADD GENERATED ALWAYS AS IDENTITY;
+
+SELECT setval(
+  'category_category_id_seq',
+  (SELECT MAX(category_id) FROM category) + 1,  
+  false
+ );
+
+SELECT MAX(category_id) FROM category;
+
+SELECT nextval('category_category_id_seq');
+-- =================
