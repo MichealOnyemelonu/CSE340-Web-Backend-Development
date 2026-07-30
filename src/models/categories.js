@@ -88,6 +88,67 @@ const updateCategoryAssignments = async(projectId, categoryIds) => {
     }
 }
 
+// Function to create a new category
+
+const createCategory = async (category_name) => {
+    const query = `
+        INSERT INTO category (category_name)
+        VALUES ($1)
+        RETURNING category_id;
+    `;
+    const result = await db.query(query, [category_name]);
+    if (result.rows.length === 0) {
+        throw new Error('Failed to create category');12
+    }
+
+    return result.rows[0].category_id;
+};
+
+const showNewCategoryForm = (req, res) => {
+    res.render('new-category', { title: 'Create Category' })
+};
+
+const processNewCategoryForm = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach(e => req.flash('error', e.msg));
+        return res.redirect('/new-category');
+    }
+
+    const { category_name } = req.body;
+
+    try {
+        await createCategory(category_name);
+        req.flash('success', 'Category created successfully');
+        res.redirect('/categories');
+    } catch (err) {
+        console.error(err);
+        req.flash('error', 'Error creating category');
+        res.redirect('/new-category');
+    }
+};
+
+const updateCategory = async (categoryId, category_name) => {
+    const query = `
+        UPDATE category
+        SET category_name = $1
+        WHERE category_id = $2
+        RETURNING category_id;
+    `;
+
+    const result = await db.query(query, [category_name, categoryId]);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to update category');
+    }
+
+    return result.rows[0].category_id;
+};
+
+
+
+
+
 
 export  {
     getAllCategories,
@@ -96,6 +157,9 @@ export  {
     getProjectsByCategoryId,
     updateCategoryAssignments,
     assignCategoryToProject,
-    
+    showNewCategoryForm,
+    processNewCategoryForm,
+    createCategory,
+    updateCategory
     
 };
