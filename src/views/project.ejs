@@ -4,13 +4,17 @@
     <h1><%= project.title %></h1>
 
     <p>
+        <a href="/edit-project/<%= project.project_id %>">Edit Project</a>
+    </p>
+
         <strong>Description:</strong>
         <%= project.description %>
     </p>
 
+
     <p>
         <strong>Date:</strong>
-        <%= project.date %>
+        <%= project.project_date %>
     </p>
 
     <p>
