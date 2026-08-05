@@ -66,12 +66,28 @@ const authenticateUser = async (email, password) => {
     return user;
 };
 
+async function getAllUsers() {
+  const sql = `
+    SELECT user_id,
+           user_firstname,
+           user_lastname,
+           user_email,
+           user_role
+    FROM users
+    ORDER BY user_lastname, user_firstname
+  `;
+
+  const result = await pool.query(sql);
+  return result.rows;
+}
+
+
 
 
 export { 
     createUser,
     verifyPassword,
     authenticateUser,
-     
-    
+    getAllUsers
+        
 };
