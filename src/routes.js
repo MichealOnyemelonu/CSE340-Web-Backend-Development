@@ -99,7 +99,7 @@ router.get('/logout', (req, res) => {
 router.get(
   "/users",
   requireLogin,
-  requireRole("Admin"),
+  requireRole("admin"),
   buildUsersPage
 );
 

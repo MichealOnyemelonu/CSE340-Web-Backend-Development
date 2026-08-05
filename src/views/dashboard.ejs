@@ -11,10 +11,9 @@
 
 <% if (user && user.user_role === 'Admin') { %>
     <p>
-        /users
-            View Registered Users
-        </a>
+         <a href="/users">View Registered Users</a>
     </p>
+    <p>Role: <%= user.user_role %></p>
 <% } %>
     
 
