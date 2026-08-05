@@ -13,7 +13,7 @@ import { showOrganizationDetailsPage, showNewOrganizationForm,
 import { showAssignCategoriesForm, processAssignCategoriesForm, showNewCategoryForm, categoryValidation, 
     processNewCategoryForm, showEditCategoryForm, processEditCategoryForm  } from './controllers/categories.js';
 
-import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard } from './controllers/users.js';
+import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole } from './controllers/users.js';
 
 const router = express.Router();
 
